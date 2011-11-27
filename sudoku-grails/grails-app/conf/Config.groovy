@@ -90,4 +90,12 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+           
+    debug  'sudoku',
+          'grails.app.controllers',
+          'grails.app.services'
+    root {
+       warn  'stdout'
+    }
+
 }
