@@ -9,10 +9,13 @@ import org.junit.Test
 class SolverControllerTests {
 
     @Test
-    void testSolve() {
-        controller.solverService = new SolverService()
-        params.cells = '2  37   9  92    7  1  4  2 5    8    8   9    6    4 9  1  5  8    76  4   89  1' as List
+    void "solve should show solved cells"() {
+        def mockedCells = (0..9*9-1).collect {new Random().nextInt(9)+1} // Just a random list of cells
+        controller.solverService = [solve:{cells->cells}] as SolverService
+        
+        params.cells = mockedCells
         controller.solve( )
-        assert model.cells == '284375169639218457571964382152496873348752916796831245967143528813527694425689731' as List
+        assert view == "/solver/show"
+        assert model.cells == mockedCells
     }
 }
