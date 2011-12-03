@@ -1,0 +1,14 @@
+* Oppgrader til Grails 2.0 RC3
+	- sjekk om det fremdeles er warnings på run-app-loggen, i så fall fjern stdout helt
+	- is flash cleared on render? 
+
+* ? gjøre noe med controller render/flash logikk
+
+* ? Vis timer output
+
+* ? Lag geb test
+
+* ? lag spock test
+
+* ? Make Board Mongo persisted, and contains solution? 
+

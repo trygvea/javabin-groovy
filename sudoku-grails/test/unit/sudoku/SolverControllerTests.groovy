@@ -9,9 +9,9 @@ import org.junit.Test
 class SolverControllerTests {
 
     @Test
-    void "solve should show solved cells"() {
-        def mockedCells = (0..9*9-1).collect {new Random().nextInt(9)+1} // Just a random list of cells
-        controller.solverService = [solve:{cells->cells}] as SolverService
+    void "should show solved cells"() {
+        List<String> mockedCells = (0..9*9-1).collect {(new Random().nextInt(9)+1).toString()} // Just a random list of cells of type string
+        controller.solverService = [solve:{cells->cells}] as SolverService 
         
         params.cells = mockedCells
         controller.solve( )
