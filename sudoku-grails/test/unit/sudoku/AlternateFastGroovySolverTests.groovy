@@ -8,9 +8,9 @@ import sudoku.CompactGroovySolver;
 import sudoku.Grid;
 
 
-class GroovySolverTests {
+class AlternateFastGroovySolverTests {
     
-    def solver = new GroovySolver()
+    def solver = new AlternateFastGroovySolver()
     
     @Test
     void "should solve correctly"() {
@@ -20,16 +20,15 @@ class GroovySolverTests {
         def solution = solver.solve(problem)
         assert solution == expectedSolution
     }
-
+    
 //    @Test
 //    void "should solve real hard sudoku"() {
-//        // The following should be one of the hardest sudokus, ref bottom of
-//        // http://en.wikipedia.org/wiki/Sudoku_algorithms#Exceptionally_difficult_Sudokus_.28hardest_Sudokus.29
+//        // The following should be one of the hardest sudokus, ref bottom of 
+//        // http://en.wikipedia.org/wiki/Sudoku_algorithms#Exceptionally_difficult_Sudokus_.28hardest_Sudokus.29 
 //        def realHardProblem =  new Grid('  3      4   8  36  8   1   4  6  73   9          2  5  4 7  686        7  6  5  ')
 //        def expectedSolution = new Grid('123456789457189236968327154249561873576938412831742695314275968695814327782693541')
 //
 //        def solution = solver.solve(realHardProblem)
 //        assert solution == expectedSolution
 //    }
-
 }

@@ -3,7 +3,7 @@ import groovy.json.JsonSlurper
 System.setProperty("file.encoding", "UTF-8")
     
 FORSLAG_URL = "http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=" 
-// Gir: [["Bergen",,,,],[["Bergen","/sted/Norge/Hordaland/Bergen/Bergen/","By (Hordaland)","NO"],... (andre byer og steder i verden)
+// Gir: [["Bergen",,,,],[["Bergen","/sted/Norge/Hordaland/Bergen/Bergen/","By (Hordaland)","NO"],[..flere 'Bergen' i verden..]
     
 String hentVarselUrl(by) {
     def json = new URL(FORSLAG_URL + URLEncoder.encode(by)).text
@@ -16,10 +16,10 @@ String hentVarselUrl(by) {
 
 int finnMaxTempForBy(by, url, dato) {
     def vær = new XmlSlurper().parse(url)
-    def morgendagensVærData = vær.forecast.tabular.time.findAll {
+    def væretIMorgen = vær.forecast.tabular.time.findAll {
         it.@from.text().substring(0,10) == dato.format('yyyy-MM-dd')
     }
-    morgendagensVærData*.temperature*.@value*.text()*.toInteger().max()
+    væretIMorgen*.temperature*.@value*.toInteger().max()
 }
 
 Map finnMaxTempPerBy(byer, dato) {
@@ -29,7 +29,7 @@ Map finnMaxTempPerBy(byer, dato) {
 }
 
 def byer = ["Oslo", "Bergen", "Trondheim", "Tromsø", "Kristiansand", "Drammen", "Stavanger", "Haugesund", "Fredrikstad"]
-def imorgen = new Date()+2
+def imorgen = new Date()+1
 
 def maxTempPerBy = finnMaxTempPerBy(byer, imorgen)
 maxTempPerBy.findAll { 

@@ -1,3 +1,5 @@
+* ? Lightweight, no-grails version ?
+
 * Oppgrader til Grails 2.0 RC3
 	- sjekk om det fremdeles er warnings på run-app-loggen, i så fall fjern stdout helt
 	- is flash cleared on render? 
@@ -12,3 +14,6 @@
 
 * ? Make Board Mongo persisted, and contains solution? 
 
+* Test suite too slow to run!
+
+* ! Nice sudoko-image

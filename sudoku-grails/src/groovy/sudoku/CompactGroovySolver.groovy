@@ -16,7 +16,7 @@ class CompactGroovySolver {
         new Grid(solution.toString())
     }
     
-//    def r(a){def i=a.indexOf(' ');if(i<0)print a else(('1'..'9')-(0..80).collect{j->
+//    def r(a){def i=a.indexOf(' ');if(i<0)solution<<a else(('1'..'9')-(0..80).collect{j->
 //        def g={(int)it(i)==(int)it(j)};
 //        g{it.intdiv(9)}||g{it%9}||g{it.intdiv(27)}&&g{(it%9).intdiv(3)}?a[j]:' '}).each{
 //        r(a[0..<i]+it+a[i+1..-1])}}

@@ -5,7 +5,6 @@ package sudoku;
  */
 public class JavaSolver {
     int[][] grid;
-    long legalCount  = 0;
 
     Grid solve(Grid grid) {
         this.grid = grid.getGrid();
@@ -37,7 +36,6 @@ public class JavaSolver {
     }
 
     boolean legal(int i, int j, int val) {
-        legalCount++;
         for (int k = 0; k < 9; ++k)  // row
             if (val == grid[k][j])
                 return false;

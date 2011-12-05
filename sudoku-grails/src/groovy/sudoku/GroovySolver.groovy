@@ -6,23 +6,14 @@ package sudoku
  */
 class GroovySolver {
     int[][] grid
-    long legalCount = 0
-    
+
     Grid solve(Grid grid) {
         this.grid = grid.grid
         solve(0,0) ? new Grid(this.grid) : null
     }
 
     private boolean solve(int i, int j) {
-        legalCount++;
-        if (grid[i][j]) {
-            return solveNext(i,j)
-        }
-        boolean hasSolution = findFirstLegal(i,j)
-        if (!hasSolution) {
-            grid[i][j] = 0 // reset on backtrack
-        }
-        return hasSolution
+        grid[i][j] ? solveNext(i,j) : solveThis(i,j)
     }
 
     private boolean solveNext(int i, int j) {
@@ -30,7 +21,15 @@ class GroovySolver {
         i==8 ? solve(0,j+1) : solve(i+1,j)
     }
     
-    private boolean findFirstLegal(int i, int j) {
+    private boolean solveThis(int i, int j) {
+        boolean hasSolution = findNextLegalValue(i,j)
+        if (!hasSolution) {
+            grid[i][j] = 0 // reset on backtrack
+        }
+        return hasSolution
+    }
+ 
+    private boolean findNextLegalValue(int i, int j) {
         def start = grid[i][j] ?: 1
         (start..9).find { val->
             if (legal(i,j,val)) {
@@ -47,25 +46,24 @@ class GroovySolver {
     }
     
     private boolean legalRow(int i, int val) {
-        !grid.find { row->
-        row[i] == val
-        }
+        !grid.find { row-> row[i] == val }
     }
     
     private boolean legalCol(int i, int val) {
-        !grid[i].find { col->
-        col == val
-        }
+        !grid[i].find { col-> col == val }
     }
     
     private boolean legalBox(int i, int j, int val) {
-        int boxRowOffset = ((int)i.intdiv(3))*3;
-        int boxColOffset = ((int)j.intdiv(3))*3;
-        for (int k = 0; k < 3; ++k) // box
+        def (boxRowOffset, boxColOffset) = boxOffset(i,j)
+        for (int k = 0; k < 3; ++k)
             for (int m = 0; m < 3; ++m)
                 if (val == grid[boxRowOffset+k][boxColOffset+m])
                     return false
-                            return true
+        return true
     }
-    
+
+    private def boxOffset(int i, int j) {
+        [((int)i.intdiv(3))*3, ((int)j.intdiv(3))*3]
+
+    }    
 }

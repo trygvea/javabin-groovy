@@ -2,31 +2,19 @@ package sudoku
 
 
 /**
- * Groovified version of http://www.colloquial.com/games/sudoku/java_sudoku.html,
- * with some speed improvements over the groovy version.
+ * Groovified version of http://www.colloquial.com/games/sudoku/java_sudoku.html
+ * with 10x speed improvements over the GroovySolver.
  */
 class FasterGroovySolver {
-    int[][] grid;
-    long legalCount  = 0;
+    int[][] grid
 
     Grid solve(Grid grid) {
-        this.grid = grid.getGrid();
-        if (solve(0,0)) {
-            return new Grid(grid.getGrid());
-        } else {
-            return null;
-        }
+        this.grid = grid.grid
+        solve(0,0) ? new Grid(this.grid) : null
     }
-    
+
     private boolean solve(int i, int j) {
-        if (grid[i][j]) {
-            return solveNext(i,j)
-        }
-        boolean hasSolution = findFirstLegal(i,j)
-        if (!hasSolution) {
-            grid[i][j] = 0 // reset on backtrack
-        }
-        return hasSolution
+        grid[i][j] ? solveNext(i,j) : solveThis(i,j)
     }
 
     private boolean solveNext(int i, int j) {
@@ -34,37 +22,55 @@ class FasterGroovySolver {
         i==8 ? solve(0,j+1) : solve(i+1,j)
     }
     
-    private boolean findFirstLegal(int i, int j) {
+    private boolean solveThis(int i, int j) {
+        boolean hasSolution = findNextLegalValue(i,j)
+        if (!hasSolution) {
+            grid[i][j] = 0 // reset on backtrack
+        }
+        return hasSolution
+    }
+ 
+    private boolean findNextLegalValue(int i, int j) {
         def start = grid[i][j] ?: 1
-        (start..9).find { val->
+        for(int val=start; val<=9; val++) { // Speed improvement: replaced .find with a for-loop
             if (legal(i,j,val)) {
                 grid[i][j] = val
-                return solveNext(i,j)
-            } else {
-                return false
+                if (solveNext(i,j)) {
+                    return true
+                }
             }
         }
     }
 
-    boolean legal(int i, int j, int val) {
-        legalCount++;
-        for (int k = 0; k < 9; ++k)  // row
-            if (val == grid[k][j])
+    private boolean legal(int i, int j, int val) {
+        legalRow(j, val) && legalCol(i, val) && legalBox(i,j,val) 
+    }
+    
+    private boolean legalRow(int i, int val) {
+        for (int k = 0; k < 9; ++k) // Speed improvement: replaced .find with a for-loop
+            if (val == grid[k][i])
                 return false;
-
-        for (int k = 0; k < 9; ++k) // col
+        return true
+    }
+    
+    private boolean legalCol(int i, int val) {
+        for (int k = 0; k < 9; ++k) // Speed improvement: replaced .find with a for-loop
             if (val == grid[i][k])
-                return false;
-
-        int boxRowOffset = (i.intdiv(3))*3;
-        int boxColOffset = (j.intdiv(3))*3;
-        for (int k = 0; k < 3; ++k) // box
+                return false
+        return true
+    }
+    
+    private boolean legalBox(int i, int j, int val) {
+        def (boxRowOffset, boxColOffset) = boxOffset(i,j)
+        for (int k = 0; k < 3; ++k)
             for (int m = 0; m < 3; ++m)
                 if (val == grid[boxRowOffset+k][boxColOffset+m])
-                    return false;
-
-        return true; // no violations, so it's legal
+                    return false
+        return true
     }
 
+    private def boxOffset(int i, int j) {
+        [((int)i.intdiv(3))*3, ((int)j.intdiv(3))*3]
 
+    }    
 }
