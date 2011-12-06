@@ -11,9 +11,9 @@ class CompactGroovySolver {
     
     def solution = new StringBuilder()
     
-    Grid solve(Grid grid) {
-        def list = r(grid.toString())
-        new Grid(solution.toString())
+    Board solve(Board board) {
+        def list = r(board.toString())
+        new Board(solution.toString())
     }
     
 //    def r(a){def i=a.indexOf(' ');if(i<0)solution<<a else(('1'..'9')-(0..80).collect{j->

@@ -7,9 +7,9 @@ package sudoku
 class GroovySolver {
     int[][] grid
 
-    Grid solve(Grid grid) {
-        this.grid = grid.grid
-        solve(0,0) ? new Grid(this.grid) : null
+    Board solve(Board board) {
+        this.grid = board.grid
+        solve(0,0) ? new Board(this.grid) : null
     }
 
     private boolean solve(int i, int j) {

@@ -2,11 +2,11 @@ package sudoku
 
 class SolverService {
     
-    Grid solve(Grid grid) {
-        new FasterGroovySolver().solve(grid)
-//        new CompactGroovySolver().solve(grid)
-//        new GroovySolver().solve(grid)
-//        new JavaSolver().solve(grid)
+    Board solve(Board board) {
+        new FasterGroovySolver().solve(board)
+//        new CompactGroovySolver().solve(board)
+//        new GroovySolver().solve(board)
+//        new JavaSolver().solve(board)
     }
 
 }

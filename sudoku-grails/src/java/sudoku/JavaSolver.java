@@ -6,10 +6,10 @@ package sudoku;
 public class JavaSolver {
     int[][] grid;
 
-    Grid solve(Grid grid) {
-        this.grid = grid.getGrid();
+    Board solve(Board board) {
+        this.grid = board.getGrid();
         if (solve(0,0)) {
-            return new Grid(grid.getGrid());
+            return new Board(board.getGrid());
         } else {
             return null;
         }

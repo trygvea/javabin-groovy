@@ -13,7 +13,7 @@ class SolverController {
             return render(view: "index", model: [cells:params.cells])
         } 
         
-        def solution = solverService.solve(new Grid(params.cells))
+        def solution = solverService.solve(new Board(params.cells))
         if (!solution) { 
             flash.message = "Oppgaven er uløselig"
         }
