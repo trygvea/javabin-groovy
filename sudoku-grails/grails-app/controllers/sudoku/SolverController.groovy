@@ -4,25 +4,39 @@ class SolverController {
     def solverService
     
     def index() { 
-        redirect action:'show'
-    }
-    
-    def show() {
         [cells:randomProblem]
     }
     
     def solve() {
         if (!validate(params)) {
             flash.error = "Noen ruter inneholder bokstaver eller symboler"
-            render(view: "show", model: [cells:params.cells])
-        } else {
-            def solution = solverService.solve(new Grid(params.cells))
-            if (!solution) { 
-                flash.message = "Oppgaven er uløselig"
-            }
-            render(view: "show", model: [cells:solution?.toListOfString() ?: params.cells])
+            return render(view: "index", model: [cells:params.cells])
+        } 
+        
+        def solution = solverService.solve(new Grid(params.cells))
+        if (!solution) { 
+            flash.message = "Oppgaven er uløselig"
         }
+        render(view: "index", model: [cells:solution?.toListOfString() ?: params.cells])
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     private boolean validate(params) {
         flash.clear()

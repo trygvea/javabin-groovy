@@ -27,7 +27,7 @@ class FasterGroovySolver {
         if (!hasSolution) {
             grid[i][j] = 0 // reset on backtrack
         }
-        return hasSolution
+        hasSolution
     }
  
     private boolean findNextLegalValue(int i, int j) {

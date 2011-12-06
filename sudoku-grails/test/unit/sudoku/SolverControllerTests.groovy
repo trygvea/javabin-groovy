@@ -15,7 +15,7 @@ class SolverControllerTests {
         
         params.cells = mockedCells
         controller.solve( )
-        assert view == "/solver/show"
+        assert view == "/solver/index"
         assert model.cells == mockedCells
     }
 }

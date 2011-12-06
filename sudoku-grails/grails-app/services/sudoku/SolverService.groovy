@@ -3,8 +3,10 @@ package sudoku
 class SolverService {
     
     Grid solve(Grid grid) {
-        def solver = new FasterGroovySolver()
-        solver.solve(grid)
+        new FasterGroovySolver().solve(grid)
+//        new CompactGroovySolver().solve(grid)
+//        new GroovySolver().solve(grid)
+//        new JavaSolver().solve(grid)
     }
 
 }

@@ -17,3 +17,12 @@
 * Test suite too slow to run!
 
 * ! Nice sudoko-image
+
+* Code review
+
+* ! Groovy intro foil
+	- Mixed typing
+	...
+	
+* Foil pr. idiom
+	- ex a ? b:c tilsv. if a return b...
