@@ -49,7 +49,7 @@ class FasterGroovySolver {
     private boolean legalRow(int i, int val) {
         for (int k = 0; k < 9; ++k) // Speed improvement: replaced .find with a for-loop
             if (val == grid[k][i])
-                return false;
+                return false
         return true
     }
     
@@ -70,7 +70,7 @@ class FasterGroovySolver {
     }
 
     private def boxOffset(int i, int j) {
-        [((int)i.intdiv(3))*3, ((int)j.intdiv(3))*3]
+        [i.intdiv(3)*3, j.intdiv(3)*3]
 
     }    
 }

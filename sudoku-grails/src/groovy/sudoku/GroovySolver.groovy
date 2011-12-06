@@ -18,7 +18,11 @@ class GroovySolver {
 
     private boolean solveNext(int i, int j) {
         if (i==8 && j==8) return true   // a solution is found
-        i==8 ? solve(0,j+1) : solve(i+1,j)
+        solve(nextCell(i,j))
+    }
+    
+    private nextCell(int i, int j) {
+        i==8 ? [0,j+1] : [i+1,j]
     }
     
     private boolean solveThis(int i, int j) {
@@ -32,12 +36,11 @@ class GroovySolver {
     private boolean findNextLegalValue(int i, int j) {
         def start = grid[i][j] ?: 1
         (start..9).find { val->
-            if (legal(i,j,val)) {
-                grid[i][j] = val
-                return solveNext(i,j)
-            } else {
+            if (!legal(i,j,val)) {
                 return false
             }
+            grid[i][j] = val
+            return solveNext(i,j)
         }
     }
 
@@ -63,7 +66,7 @@ class GroovySolver {
     }
 
     private def boxOffset(int i, int j) {
-        [((int)i.intdiv(3))*3, ((int)j.intdiv(3))*3]
+        [i.intdiv(3)*3, j.intdiv(3)*3]
 
     }    
 }

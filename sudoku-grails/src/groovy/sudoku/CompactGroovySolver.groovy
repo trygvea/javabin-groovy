@@ -12,7 +12,7 @@ class CompactGroovySolver {
     def solution = new StringBuilder()
     
     Board solve(Board board) {
-        def list = r(board.toString())
+        solve(board.toString())
         new Board(solution.toString())
     }
     
@@ -21,12 +21,12 @@ class CompactGroovySolver {
 //        g{it.intdiv(9)}||g{it%9}||g{it.intdiv(27)}&&g{(it%9).intdiv(3)}?a[j]:' '}).each{
 //        r(a[0..<i]+it+a[i+1..-1])}}
     
-    def r(a) {
+    def solve(String s) {
         def g={i,j,c->c(i) == c(j)}
         
-        def i=a.indexOf(' ');
+        def i=s.indexOf(' ');
         if ( i<0 ) {
-            solution << a 
+            solution << s 
         } else {
             def x = (0..80).collect{j->
                 g(i,j) {
@@ -40,11 +40,11 @@ class CompactGroovySolver {
                 } && 
                 g(i,j) {
                     (it%9).intdiv(3)
-                } ? a[j] : ' ' 
+                } ? s[j] : ' ' 
              }
            def y = ('1'..'9')-x
            y.each{
-                r(a[0..<i]+it+a[i+1..-1])
+                solve(s[0..<i]+it+s[i+1..-1])
             }
         }
         
