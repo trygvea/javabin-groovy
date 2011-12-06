@@ -1,17 +1,11 @@
 .game input.cell {
-     width: 1em;
-     margin-top: 1px;
-     margin-bottom: 2px;
+    width: 1em;
+    margin-top: 1px;
+    margin-bottom: 2px;
 }
 
-.game {
-    margin: 10px;
-}
+.game { margin: 10px; }
+.game input[type=submit] { margin-top: 10px; }
 
-.row2, .row5, .row8 {
-    border-bottom: thin solid;
-}
-
-.col2, .col5, .col8 {
-    border-right: thin solid;
-}
+.row2, .row5, .row8 { border-bottom: thin solid; }
+.col2, .col5, .col8 { border-right: thin solid; }
