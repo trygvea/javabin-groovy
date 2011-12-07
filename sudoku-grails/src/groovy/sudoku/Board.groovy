@@ -42,30 +42,4 @@ class Board {
         list
     }
 
-    private boolean legal(int i, int j, int val) {
-        legalRow(j, val) && legalCol(i, val) && legalBox(i,j,val) 
-    }
-    
-    private boolean legalRow(int i, int val) {
-        !grid.find { row-> row[i] == val }
-    }
-    
-    private boolean legalCol(int i, int val) {
-        !grid[i].find { col-> col == val }
-    }
-    
-    private boolean legalBox(int i, int j, int val) {
-        def (boxRowOffset, boxColOffset) = boxOffset(i,j)
-        for (int k = 0; k < 3; ++k)
-            for (int m = 0; m < 3; ++m)
-                if (val == grid[boxRowOffset+k][boxColOffset+m])
-                    return false
-        return true
-    }
-
-    private def boxOffset(int i, int j) {
-        [((int)i.intdiv(3))*3, ((int)j.intdiv(3))*3]
-
-    }    
-
 }

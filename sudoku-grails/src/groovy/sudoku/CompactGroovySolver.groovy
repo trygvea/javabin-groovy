@@ -16,25 +16,27 @@ class CompactGroovySolver {
         solution ? new Board(solution.toString()) : null 
     }
     
-    private def solve(String s) {
-        def isSameFor = {i,j, Closure c -> c(i)==c(j)}
+    def isSameFor(i, j, Closure c) { 
+        c(i)==c(j)
+    }
         
-        def isSameRowOrColumnOrBox = { i,j ->
-            isSameFor(i,j) { it.intdiv(9) } ||    // samme rad 
-            isSameFor(i,j) { it%9 } ||            // samme kolonne
-            isSameFor(i,j) { it.intdiv(27) } &&   // samme boks 
-            isSameFor(i,j) { (it%9).intdiv(3) }   
-        }
+    def isSameRowOrColumnOrBox(i, j) {
+        isSameFor(i,j) { it.intdiv(9) } ||    // same row 
+        isSameFor(i,j) { it%9 } ||            // same column
+        isSameFor(i,j) { it.intdiv(27) } &&   // same box
+        isSameFor(i,j) { (it%9).intdiv(3) }   
+    }
         
-        def i=s.indexOf(' ');   // Next unsolved
+    private def solve(String cells) {
+        def i=cells.indexOf(' ');   // get next unsolved
         if ( i<0 ) {
-            solution << s       // Solution found
+            solution << cells       // a solution found !
         } else {
-            def dependentCells = (0..80).collect {j->
-                isSameRowOrColumnOrBox(i,j) ? s[j] : ' ' 
-             }
-            (('1'..'9')-dependentCells).each {  // for remaining values 
-                solve(s[0..<i]+it+s[i+1..-1])   // try to solve with this value 
+            def filteredCells = (0..80).collect { j ->
+                isSameRowOrColumnOrBox(i,j) ? cells[j] : ' '
+            }
+            (('1'..'9')-filteredCells).each {           // for all remaining values
+                solve(cells[0..<i]+it+cells[i+1..-1])   // try to solve with this value
             }
         }
     }

@@ -2,7 +2,6 @@
 	<head>
 		<meta name="layout" content="main">
 		<title>Sudoko oppgaveløser</title>
-		<r:require modules="jquery"/>
 	</head>
 	<body>
 		<tmpl:renderMessages/>
