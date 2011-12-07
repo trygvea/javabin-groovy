@@ -10,7 +10,7 @@ class SolverControllerTests {
 
     @Test
     void "should show solved cells"() {
-        List<String> mockedCells = (0..9*9-1).collect {(new Random().nextInt(9)+1).toString()} // Just a random list of cells of type string
+        List<String> mockedCells = (0..80).collect {(new Random().nextInt(9)+1).toString()} // Just a random list of cells of type string
         controller.solverService = [solve:{cells->cells}] as SolverService 
         
         params.cells = mockedCells
