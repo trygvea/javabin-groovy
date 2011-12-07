@@ -17,7 +17,7 @@ class CompactGroovySolver {
     }
     
     private def solve(String s) {
-        def isSameFor = {i,j,c->c(i)==c(j)}
+        def isSameFor = {i,j, Closure c -> c(i)==c(j)}
         
         def isSameRowOrColumnOrBox = { i,j ->
             isSameFor(i,j) { it.intdiv(9) } ||    // samme rad 
@@ -28,7 +28,7 @@ class CompactGroovySolver {
         
         def i=s.indexOf(' ');   // Next unsolved
         if ( i<0 ) {
-            solution << s // Solution found
+            solution << s       // Solution found
         } else {
             def dependentCells = (0..80).collect {j->
                 isSameRowOrColumnOrBox(i,j) ? s[j] : ' ' 
